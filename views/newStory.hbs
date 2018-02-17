@@ -1,0 +1,44 @@
+
+
+<div id="header">
+    <div id="mainHeader"><a href="/">{{title}}</a></div>
+    <div id="profileHeader"></div>
+</div>
+<div id="content">
+    <div id="scrollableContent">
+        <!--stuff <br>-->
+        <!--stuff <br>-->
+        <div id="paddingContent">
+            <h3>Start A New Story</h3>
+            {{> flash}}
+            <div id="newStoryForm">
+            <form action="/save" method="post">
+                <div class="form-group">
+                    <label for="storyTitle" >Story Title *</label>
+                    <input id="storyTitle" type="text" name="storyTitle" class="form-control" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="storyDesc" >Story Description </label>
+                    <input id="storyDesc" type="text" name="storyDesc" class="form-control">
+                </div>
+
+                <div class="form-group">
+                    <label for="storyText" >Story Text *</label>
+                    <!--<input id="storyText" type="text" name="storyText" class="form-control" required>-->
+                    <textarea id="storyText" name="storyText" class="form-control" ></textarea>
+                </div>
+
+                <input type="submit" value="Save" class="btn btn-primary">
+            </form>
+            </div>
+
+        </div>
+
+
+        <p></p>
+    </div>
+</div>
+<div id="footer">
+    &#169; Chuksy
+</div>

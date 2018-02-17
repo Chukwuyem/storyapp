@@ -1,0 +1,6 @@
+
+DROP SEQUENCE IF EXISTS para_prid_sequence;
+DROP sequence IF EXISTS stories_stid_sequence;
+DROP TABLE IF EXISTS paragraphs CASCADE;
+DROP TABLE IF EXISTS users CASCADE;
+DROP TABLE IF EXISTS stories CASCADE;
