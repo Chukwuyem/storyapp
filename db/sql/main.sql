@@ -134,8 +134,8 @@ create table paragraphs (
     head boolean not null,
     maintext text,
     writer text not null REFERENCES users(username),
-    parentpr integer,
-    childpr integer,
+    parentpr bigint,
+    childpr bigint,
     created_at timestamptz DEFAULT now()
 );
 
@@ -153,7 +153,7 @@ ALTER TABLE paragraphs OWNER TO postgres;
 ------------------------------------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------------------------------------
 
--- ALTER TABLE stories ADD COLUMN headpara bigint;
+ALTER TABLE stories ADD COLUMN headpara bigint null REFERENCES paragraphs(prid) on delete set null;
 
 INSERT INTO users (username, email, password_hash) VALUES ('testUser1', 'a@b.c',
 '$2a$06$9h.3BD7pqZMPubkvoH5Ju.sZeum1aF4nhlqjkx.kmO0iF2bTzez2G');

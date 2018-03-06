@@ -19,7 +19,7 @@ function loadStories(){
                 eachStory += `<h3><a href="#">`+data[i].title+`</a></h3>`
                 eachStory += `<p>`+data[i].created_at+`</p>`
                 eachStory += `<p>Story Description: `+data[i].description+`</p>`
-                //eachStory += `<p>Read More...</p>`
+                eachStory += `<p><a href="/story/${data[i].stid}" >Read More...</a></p>`
                 $('#stories').append(eachStory)
             }
 

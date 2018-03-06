@@ -13,6 +13,9 @@ router.get('/new', passportHelper.isAuthenticated, homeController.newStory)
 router.post('/save', passportHelper.isAuthenticated, homeController.saveStory)
 router.get('/get/stories', passportHelper.isAuthenticated, homeController.getStories)
 
+router.get('/story/:stid', passportHelper.isAuthenticated, homeController.loadStory)
+router.get('/para/:prid', passportHelper.isAuthenticated, homeController.loadPara)
+
 
 // router.get('/', function(req, res, next) {
 //   res.render('index', { title: 'Express' });

@@ -1,0 +1,32 @@
+Loading the homepage
+
+Querying the database from server side vs client side
+
+server side:
+Query database in homeController.js.
+Stories are rendered using "{{#each Story}} {{/each}}" template.
+Disadvantage: This would load the whole story table at once.
+Being that this is on the homepage, we want to show the user a little at a time.
+Like a timeline, where if you go to the load, you could "Load More..."
+If we put a limit on the query in order to achieve this, the page will to be re-rendered when a new
+	query is called.
+	
+Client side: [IN USE]
+Query database in homepage.js
+Stories are rendered with jquery on the client side.
+This helps us control how much we show the user while being able to load more stories without re-rendering the 
+	whole page.
+	
+
+------------------------------------------------------------------
+Story to Paragraph relationship.
+
+Initial idea:
+Each paragraph references story.
+Each paragraph has a column for whether its a head or not (i.e. the first para in a story).
+Head paragraphs would be called with a "...WHERE stid={story id} AND head= TRUE..."
+
+Alternate idea: [IN USE]
+Each story has a headpara column.
+This would mean a circular reference where the story table references para table and vice versa.
+Now, paragraphs can be called with a simple "...WHERE prid={paragraph id}..."

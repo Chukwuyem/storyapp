@@ -9,7 +9,20 @@
         <!--stuff <br>-->
         <div id="paddingContent">
 
+            {{> flash}}
+
             <div id="stories">
+
+                {{!-- for when we load stories from server side
+                {{#each story}}
+                    <div class="eachStory">
+                    <h3><a href="#">{{ title }}</a></h3>
+                    <p>{{ created_at }} </p>
+                    <p>Story Description: {{ description }}</p>
+                    <p><a href="/story/{{stid}}" >Read More...</a></p>
+                    </div>
+                {{/each}}
+                --}}
 
                 <div class="eachStory">
                     <h3>Story Title</h3>

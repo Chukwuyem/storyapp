@@ -56,18 +56,16 @@ exports.home = (req, res, next) => {
     console.log("loading home...")
 
     res.render('index', {title: "STORY APP - Home"})
-    // res.render('index', {title: "STORY APP - Home"}, function(err, html){
-    //
-    //     story.getAllStories()
-    //         .then(data => {
-    //             // console.log(data.rows)
-    //             res.render('index', {title: "STORY APP - Home", story: data.rows})
-    //         })
-    //         .catch(err => {
-    //             winston.error(err)
-    //             req.flash('error', 'Error: Unable to load stories')
-    //         })
-    // })
+
+    // story.getAllStories()
+    //     .then(data => {
+    //         console.log(data.rows)
+    //         res.render('index', {title: "STORY APP - Home", story: data.rows})
+    //     })
+    //     .catch(err => {
+    //         winston.error(err)
+    //         req.flash('error', 'Error: Unable to load stories')
+    //     })
 }
 
 exports.getStories = (req, res, next) => {
@@ -95,34 +93,76 @@ exports.saveStory = (req, res, next) => {
     console.log(req.body)
     console.log('this is req')
 
-    let username = req.user.rows[0].username
-    console.log(username)
+    let object = {
+        storyTitle: req.body.storyTitle,
+        storyDesc: req.body.storyDesc,
+        writer: req.user.rows[0].username,
+        storyText: req.body.storyText
+    }
 
-    story.createStory(req.body)
+    story.createStory(object)
         .then(data => {
-            console.log('saved story')
+            console.log('saved story and first paragraph')
+            req.flash('success', 'New Story successfully created')
+            res.redirect('/new')
 
-            let newSTID = data.rows[0].stid
-
-            let headpr = {
-                stid: newSTID,
-                head: true,
-                maintext: req.body.storyText,
-                writer: username,
-                parentpr: null,
-                childpr: null
-            }
-            //story.createParagraph()
-            story.createParagraph(headpr)
-                .then(data => {
-                    console.log('saved first paragraph')
-                    req.flash('success', 'New Story successfully created')
-                    res.redirect('/new')
-                })
         })
         .catch(err => {
             winston.error(err)
             req.flash('error', 'Error: Unable to save new story')
+            res.redirect('/new')
         })
 
+}
+
+exports.loadStory = (req, res, next) => {
+    const stID = req.params.stid
+
+    let title, storyTitle, description, firstpara, nextpara;
+
+    story.getStory(stID)
+        .then(data =>{
+            //console.log(data.rows)
+
+            storyTitle = data.rows[0].title
+            description = data.rows[0].description
+
+            story.getPara(data.rows[0].headpara)
+                .then(data =>{
+                    //console.log(data.rows)
+
+                    firstpara = data.rows[0].maintext
+                    nextpara= data.rows[0].childpr
+
+                    if (nextpara == null)
+                        nextpara = "NULL"
+
+                    res.render('storyPage', {title: 'Story App', storyTitle: storyTitle, description: description,
+                        firstpara: firstpara, nextpara: nextpara, paraprid: data.rows[0].prid})
+                })
+                .catch(err => {
+                    winston.error(err)
+                    req.flash('error', 'Error: Unable to load requested story [paragraph query err]')
+                    res.redirect('/')
+                })
+        })
+        .catch(err => {
+            winston.error(err)
+            req.flash('error', 'Error: Unable to load requested story [story query err]')
+            res.redirect('/')
+        })
+}
+
+exports.loadPara = (req, res, next) => {
+    const prID = req.params.prid
+
+    story.getPara(prID)
+        .then(data =>{
+            //console.log(data.rows)
+            res.send(data.rows[0])
+        })
+        .catch(err => {
+            winston.error(err)
+            //req.flash('error', 'Error: Unable to load requested paragraph')
+        })
 }

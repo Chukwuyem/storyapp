@@ -1,0 +1,49 @@
+
+<link rel='stylesheet' href='/stylesheets/storyPagestyle.css' />
+
+<div id="header">
+    <div id="mainHeader"><a href="/">{{title}}</a></div>
+    <div id="profileHeader"></div>
+</div>
+<div id="content">
+    <div id="scrollableContent">
+        <!--stuff <br>-->
+        <!--stuff <br>-->
+        <div id="paddingContent">
+
+            <div id="story">
+
+                <div id="storyInfo">
+                    <h3>{{ storyTitle }}</h3>
+                    <p>Description: {{ description }}</p>
+                </div>
+
+                <div id="storyParas">
+                    <div class="eachPara" id="{{ paraprid }}"> <p> {{ firstpara }} </p> </div>
+                </div>
+
+                <div id="storyEdit">
+                    <input type="hidden" id="nextPara" data-para-id="{{ nextpara }}" />
+                    <button id="loadNextPara" type="submit">Read More...</button>
+
+                    <form action="#" method="post">
+                        <label for="newPara" >Add to Story</label>
+                        <textarea id="newPara" name="newPara" class="form-control" ></textarea>
+                        <button id="addPara" type="submit">Submit</button>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+
+
+        <p></p>
+    </div>
+</div>
+<div id="footer">
+    &#169; Chuksy
+</div>
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+<script src="/javascripts/storyPage.js"></script>
