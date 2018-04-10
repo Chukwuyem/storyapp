@@ -1,4 +1,12 @@
 
+function goToByScroll(id){
+    // Remove "link" from the ID
+    id = id.replace("link", "");
+    // Scroll
+    $("#storyParas").animate({
+            scrollTop: $("#storyParas").scrollTop() + $("#"+id).position().top},
+        'slow');
+}
 
 function loadNextPara() {
 
@@ -28,13 +36,25 @@ function loadNextPara() {
 
                 $("#storyParas").append(newParaHTML)
 
+                $("#storyParas").scrollTo($("#"+data.prid), 1000) //scroll to new paragraph
+
                 $('#nextPara').data("para-id", data.childpr)
                 //<div class="eachPara"> <p> {{ firstpara }} </p> </div>
+
             }
         })
     }
 
 }
+
+function addNewPara() {
+    let values = $('#newParaForm').serializeArray()
+
+    let newText = $('#newPara').val()
+
+
+}
+
 
 $(document).ready(function(){
     console.log('story page is ready')
@@ -53,6 +73,14 @@ $(document).ready(function(){
         console.log("Clicked the load next paragraph button")
 
         loadNextPara()
+    })
+
+    $('#addPara').click(function(e){
+        e.preventDefault()
+
+        console.log("Clicked the add new paragraph button")
+
+        addNewPara()
     })
 
 

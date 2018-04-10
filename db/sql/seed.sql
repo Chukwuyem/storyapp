@@ -24,6 +24,7 @@ BEGIN
     Again he passed the little square of green with its lonely drinking fountain and bench and single lamppost.', 'testUser1') RETURNING prid INTO para_prid01;
 
     UPDATE stories SET headpara = para_prid01 WHERE stid = story_stid01;
+    -- UPDATE stories SET fk_stories_headpara = (story_stid01, para_prid01) WHERE stid = story_stid01;
 
      INSERT INTO paragraphs (prid, story, head, maintext, parentpr, writer) VALUES (generate_para_prid(), story_stid01, FALSE,
     'From the lamppost something was hanging. A shapeless dark bundle, swinging a little with the wind. Like a dummy of some sort.

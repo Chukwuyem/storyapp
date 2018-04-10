@@ -81,10 +81,12 @@ create table stories (
     stid varchar not null primary key,
     title text not null,
     description text,
-    created_at timestamptz DEFAULT now()
-    -- headpara integer not null REFERENCES paragraphs(prid),
-    -- headpara is the id of the head (first) paragraph
-    -- can't do headpara because one has to come first, story or para since both reference each other
+    created_at timestamptz DEFAULT now(),
+    headpara bigint null,
+    lastpara bigint null
+    -- headpara integer not null REFERENCES paragraphs(prid), ==> added later
+    -- headpara is the id of the head (first) paragraph can't do headpara here because one has to come first,
+    -- story or para since both reference each other. headpara created later with ALTER
 );
 
 ALTER TABLE stories OWNER TO postgres;
@@ -153,7 +155,16 @@ ALTER TABLE paragraphs OWNER TO postgres;
 ------------------------------------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------------------------------------
 
-ALTER TABLE stories ADD COLUMN headpara bigint null REFERENCES paragraphs(prid) on delete set null;
+-- ALTER TABLE stories ADD COLUMN headpara bigint null REFERENCES paragraphs(prid) on delete set null;
+
+alter table paragraphs add constraint unq_paragraph_story_prid unique (story, prid);
+
+alter table stories add constraint fk_stories_headpara
+    foreign key (stid, headpara) references paragraphs(story, prid);
+
+alter table stories add constraint fk_stories_lastpara
+    foreign key (stid, lastpara) references paragraphs(story, prid);
+
 
 INSERT INTO users (username, email, password_hash) VALUES ('testUser1', 'a@b.c',
 '$2a$06$9h.3BD7pqZMPubkvoH5Ju.sZeum1aF4nhlqjkx.kmO0iF2bTzez2G');

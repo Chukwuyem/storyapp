@@ -1,0 +1,24 @@
+
+Solution one:
+
+story never references paragraph
+
+paragraph has head and tail column
+
+first para is automatically head and tail
+
+second para changes first para tail and childpr column
+
+third para changes second para tail and childpr column
+
+
+Solution two:
+
+a story paragraph assignment
+
+columns
+- STPR ID (primary key)
+- story  (story ID)
+- headpara (para ID)
+- tailpara (para ID)
+

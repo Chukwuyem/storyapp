@@ -88,6 +88,7 @@ exports.newStory = (req, res, next) => {
 }
 
 exports.saveStory = (req, res, next) => {
+    //saving a New story
     console.log("saving story...")
 
     console.log(req.body)
@@ -165,4 +166,8 @@ exports.loadPara = (req, res, next) => {
             winston.error(err)
             //req.flash('error', 'Error: Unable to load requested paragraph')
         })
+}
+
+exports.savePara = (req, res, next) => {
+
 }
